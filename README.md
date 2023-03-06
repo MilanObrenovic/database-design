@@ -11,4 +11,4 @@ The goal is to model a fraction of YouTube functionality to a PostgreSQL databas
 
 ## ERD preview
 
-![database-design.jpg](database-design.jpg)
+![database-design.jpg](..%2F..%2F..%2Fdatabase-design.jpg)
