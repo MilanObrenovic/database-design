@@ -1,35 +1,35 @@
-DROP TABLE IF EXISTS user_profile CASCADE;
-DROP TABLE IF EXISTS youtube_account CASCADE;
-DROP TABLE IF EXISTS youtube_channel CASCADE;
-DROP TABLE IF EXISTS channel_subscriber CASCADE;
+-- USERS
+INSERT INTO user_profile (first_name, last_name, email, gender, created_at)
+VALUES ('A', 'Aa', 'a.a@gmail.com', 'FEMALE', '2023-06-03 01:58:58.000000');
+INSERT INTO user_profile (first_name, last_name, email, gender, created_at)
+VALUES ('B', 'Bb', 'b.b@gmail.com', 'MALE', '2023-06-03 01:58:58.000000');
+INSERT INTO user_profile (first_name, last_name, email, gender, created_at)
+VALUES ('C', 'Cc', 'c.c@gmail.com', 'FEMALE', '2023-06-03 01:58:58.000000');
+INSERT INTO user_profile (first_name, last_name, email, gender, created_at)
+VALUES ('D', 'Dd', 'd.d@gmail.com', 'MALE', '2023-06-03 01:58:58.000000');
 
-CREATE TABLE IF NOT EXISTS user_profile (
-	id BIGSERIAL PRIMARY KEY,
-	first_name TEXT NOT NULL,
-	last_name TEXT NOT NULL,
-	email TEXT UNIQUE NOT NULL,
-	gender TEXT CHECK(gender IN ('MALE', 'FEMALE')) NOT NULL,
-	created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL
-);
+-- ACCOUNTS
+INSERT INTO youtube_account (id, created_at)
+VALUES (1, '2023-06-03 01:58:58.000000');
+INSERT INTO youtube_account (id, created_at)
+VALUES (2, '2023-06-03 02:04:32.000000');
+INSERT INTO youtube_account (id, created_at)
+VALUES (4, '2023-06-03 02:04:44.000000');
 
-CREATE TABLE IF NOT EXISTS youtube_account (
-	id BIGINT PRIMARY KEY REFERENCES user_profile(id),
-	created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL
-);
+-- YOUTUBE CHANNELS
+INSERT INTO youtube_channel (youtube_account_id, channel_name, created_at)
+VALUES (1, 'MariamBeauty', '2023-06-03 02:06:10.000000');
+INSERT INTO youtube_channel (youtube_account_id, channel_name, created_at)
+VALUES (2, 'JoeTech', '2023-06-03 02:06:10.000000');
+INSERT INTO youtube_channel (youtube_account_id, channel_name, created_at)
+VALUES (4, 'AlexTutorials', '2023-06-03 02:06:10.000000');
 
-CREATE TABLE IF NOT EXISTS youtube_channel (
-	id BIGSERIAL PRIMARY KEY,
-	youtube_account_id BIGINT NOT NULL REFERENCES youtube_account(id),
-	channel_name TEXT NOT NULL UNIQUE,
-	created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL
-);
-
--- Two primary keys are also known as composite keys.
--- We're using composite keys because we don't want to allow the
--- user to subscribe to the same youtube channel more than once.
-CREATE TABLE IF NOT EXISTS channel_subscriber (
-	youtube_account_id BIGINT REFERENCES youtube_account(id),
-	youtube_channel_id BIGINT REFERENCES youtube_channel(id),
-	created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-	PRIMARY KEY (youtube_account_id, youtube_channel_id)
-);
+-- SUBSCRIBERS
+INSERT INTO channel_subscriber (youtube_account_id, youtube_channel_id, created_at)
+VALUES (1, 2, '2023-06-03 02:08:16.000000');
+INSERT INTO channel_subscriber (youtube_account_id, youtube_channel_id, created_at)
+VALUES (1, 3, '2023-06-03 02:08:16.000000');
+INSERT INTO channel_subscriber (youtube_account_id, youtube_channel_id, created_at)
+VALUES (4, 1, '2023-06-03 02:08:16.000000');
+INSERT INTO channel_subscriber (youtube_account_id, youtube_channel_id, created_at)
+VALUES (2, 1, '2023-06-03 02:08:16.000000');
